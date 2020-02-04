@@ -1,0 +1,9 @@
+#!/bin/bash
+set -e
+
+### Send stdout, stderr to /var/log/messages/
+exec 1> >(logger -s -t $(basename $0)) 2>&1
+
+### YUM update
+yum -y install gcc gcc-c++ install oracle-database-server-12cR2-preinstall
+yum update -y

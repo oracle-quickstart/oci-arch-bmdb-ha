@@ -1,28 +1,25 @@
-# oci-quickstart-template
+# oci-arch-bmdb-ha
 
-The [Oracle Cloud Infrastructure (OCI) Quick Start](https://github.com/oracle-quickstart?q=oci-quickstart) is a collection of examples that allow Oracle Cloud Infrastructure users to get a quick start deploying advanced infrastructure on OCI.
+This set of scripts does the following tasks
+1) Deploys two Bare Metal Database Systems running Oracle Database 12c Release 2 (12.2).
+2) Configures one of these Database Systems to be the Primary and the other to be the Standby database in a Oracle Data Guard setup.
+3) Deploys three compute instances, copies the Oracle Database 12c Release 2 (12.2) software to those three instances and configures them as FSFO observer nodes.
 
-The oci-quickstart-template repository contains the template that can be used for accelerating the construction of quickstarts that runs from local Terraform CLI and OCI Resource Manager.
-
-Simple is a sample application that deploys a standalone virtual machine from the Oracle Cloud Infrastructure Marketplace.
-
-This repo is under active development.  Building open source software is a community effort.  We're excited to engage with the community building this.
-
-## How this project is organized
-
-Each application is stored on its own top level folder.
-
-Within the simple application project there are 3 modules:
-
-- [simple-cli](simple-cli): launch a simple VM that subscribes to a Marketplace Image running from Terraform CLI.
-- [simple-orm](simple-orm): Responsible for packaging the simple-cli module in OCI [Resource Manager Stack](https://docs.cloud.oracle.com/iaas/Content/ResourceManager/Tasks/managingstacksandjobs.htm) format.
-- [terraform-modules](terraform-modules): contains a list of re-usable terraform modules for managing infrastructure resources like vcn, subnets, security, etc.
 
 ## Prerequisites
 
 First off we'll need to do some pre deploy setup.  That's all detailed [here](https://github.com/oracle/oci-quickstart-prerequisites).
 
-## Deploying Simple
+Download Oracle Database 12c Release 2 (12.2) software for Oracle Linux from [here](https://www.oracle.com/database/technologies/oracle12c-linux-12201-downloads.html).
 
-Detailed instructions for deploying Simple on Oracle Cloud Infrastructure can be found in the [simple](./simple/README.md) space.
+These terraform scripts were written for Terraform version v0.11. You will need to update the code for higher versions.
+
+## Deploying the architecture
+1) Deploy a compute instance on OCI.
+2) Copy the downloaded file linuxx64_12201_database.zip to that instance.
+3) Download the files in the https://github.com/oracle-quickstart/oci-arch-bmdb-ha repository and copy them to the compute instance
+4) Update the terraform.tfvars files in all the folders so that it is using variable values specific to your tenancy.
+5) Edit main.sh and ensure that the pathname for the linuxx64_12201_database.zip reflects the path to the file on your compute instance.
+6) Run terraform init on all the folders which have terraform scripts in them.
+7) Execute main.sh
 
